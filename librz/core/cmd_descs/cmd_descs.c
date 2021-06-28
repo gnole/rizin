@@ -114,6 +114,8 @@ static const RzCmdDescArg eval_readonly_args[2];
 static const RzCmdDescArg eval_spaces_args[2];
 static const RzCmdDescArg eval_type_args[2];
 static const RzCmdDescArg env_args[3];
+static const RzCmdDescArg cmd_info_sections_args[2];
+static const RzCmdDescArg cmd_info_segments_args[2];
 static const RzCmdDescArg ls_args[2];
 static const RzCmdDescArg plugins_load_args[2];
 static const RzCmdDescArg plugins_unload_args[2];
@@ -2296,6 +2298,13 @@ static const RzCmdDescHelp cmd_info_cur_symbol_help = {
 };
 
 static const RzCmdDescArg cmd_info_sections_args[] = {
+	{
+		.name = "digests",
+		.type = RZ_CMD_ARG_TYPE_STRING,
+		.flags = RZ_CMD_ARG_FLAG_ARRAY,
+		.optional = true,
+
+	},
 	{ 0 },
 };
 static const RzCmdDescHelp cmd_info_sections_help = {
@@ -2320,6 +2329,13 @@ static const RzCmdDescHelp cmd_info_section_bars_help = {
 };
 
 static const RzCmdDescArg cmd_info_segments_args[] = {
+	{
+		.name = "digests",
+		.type = RZ_CMD_ARG_TYPE_STRING,
+		.flags = RZ_CMD_ARG_FLAG_ARRAY,
+		.optional = true,
+
+	},
 	{ 0 },
 };
 static const RzCmdDescHelp cmd_info_segments_help = {
@@ -5290,7 +5306,7 @@ RZ_IPI void rzshell_cmddescs_init(RzCore *core) {
 	rz_warn_if_fail(cmd_info_cur_symbol_cd);
 	rz_cmd_desc_set_default_mode(cmd_info_cur_symbol_cd, RZ_OUTPUT_MODE_TABLE);
 
-	RzCmdDesc *cmd_info_sections_cd = rz_cmd_desc_argv_state_new(core->rcmd, i_cd, "iS", RZ_OUTPUT_MODE_TABLE | RZ_OUTPUT_MODE_JSON | RZ_OUTPUT_MODE_QUIET, rz_cmd_info_handler, &cmd_info_sections_help);
+	RzCmdDesc *cmd_info_sections_cd = rz_cmd_desc_argv_state_new(core->rcmd, i_cd, "iS", RZ_OUTPUT_MODE_TABLE | RZ_OUTPUT_MODE_JSON, rz_cmd_info_sections_handler, &cmd_info_sections_help);
 	rz_warn_if_fail(cmd_info_sections_cd);
 	rz_cmd_desc_set_default_mode(cmd_info_sections_cd, RZ_OUTPUT_MODE_TABLE);
 
@@ -5302,7 +5318,7 @@ RZ_IPI void rzshell_cmddescs_init(RzCore *core) {
 	rz_warn_if_fail(cmd_info_section_bars_cd);
 	rz_cmd_desc_set_default_mode(cmd_info_section_bars_cd, RZ_OUTPUT_MODE_TABLE);
 
-	RzCmdDesc *cmd_info_segments_cd = rz_cmd_desc_argv_state_new(core->rcmd, i_cd, "iSS", RZ_OUTPUT_MODE_TABLE | RZ_OUTPUT_MODE_JSON | RZ_OUTPUT_MODE_QUIET, rz_cmd_info_handler, &cmd_info_segments_help);
+	RzCmdDesc *cmd_info_segments_cd = rz_cmd_desc_argv_state_new(core->rcmd, i_cd, "iSS", RZ_OUTPUT_MODE_TABLE | RZ_OUTPUT_MODE_JSON, rz_cmd_info_segments_handler, &cmd_info_segments_help);
 	rz_warn_if_fail(cmd_info_segments_cd);
 	rz_cmd_desc_set_default_mode(cmd_info_segments_cd, RZ_OUTPUT_MODE_TABLE);
 
