@@ -20,6 +20,7 @@ static int rabin_show_help(int v) {
 			" -a [arch]       set arch (x86, arm, .. or <arch>_<bits>)\n"
 			" -b [bits]       set bits (32, 64 ...)\n"
 			" -B [addr]       override base address (pie bins)\n"
+                        " -Y              find base address\n"
 			" -c              list classes\n"
 			" -cc             list classes in header format\n"
 			" -C [fmt:C:D]    create [elf,mach0,pe] with Code and Data hexpairs (see -a)\n"
@@ -793,6 +794,7 @@ RZ_API int rz_main_rz_bin(int argc, const char **argv) {
 		case 'B':
 			baddr = rz_num_math(NULL, opt.arg);
 			break;
+                case 'Y': set_action(RZ_BIN_REQ_RELOCS); break;
 		case '@':
 			at = rz_num_math(NULL, opt.arg);
 			if (at == 0LL && *opt.arg != '0') {
