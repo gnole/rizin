@@ -826,6 +826,8 @@ RZ_IPI int rz_cmd_info(void *data, const char *input) {
 		case 'r': // "ir"
 			RZBININFO("relocs", RZ_CORE_BIN_ACC_RELOCS, NULL);
 			break;
+		case 'Y':
+			RZBININFO("basefind", RZ_CORE_BIN_ACC_BASEFIND, NULL);
 		case 'x':
 			newline = false;
 			switch (*++input) {

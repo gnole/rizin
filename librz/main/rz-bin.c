@@ -794,7 +794,7 @@ RZ_API int rz_main_rz_bin(int argc, const char **argv) {
 		case 'B':
 			baddr = rz_num_math(NULL, opt.arg);
 			break;
-                case 'Y': set_action(RZ_BIN_REQ_RELOCS); break;
+		case 'Y': set_action(RZ_BIN_REQ_BASEFIND); break;
 		case '@':
 			at = rz_num_math(NULL, opt.arg);
 			if (at == 0LL && *opt.arg != '0') {
@@ -1148,6 +1148,7 @@ RZ_API int rz_main_rz_bin(int argc, const char **argv) {
 	run_action("header", RZ_BIN_REQ_HEADER, RZ_CORE_BIN_ACC_HEADER);
 	run_action("libs", RZ_BIN_REQ_LIBS, RZ_CORE_BIN_ACC_LIBS);
 	run_action("relocs", RZ_BIN_REQ_RELOCS, RZ_CORE_BIN_ACC_RELOCS);
+	run_action("basefind", RZ_BIN_REQ_BASEFIND, RZ_CORE_BIN_ACC_BASEFIND);
 	run_action("dwarf", RZ_BIN_REQ_DWARF, RZ_CORE_BIN_ACC_DWARF);
 	run_action("pdb", RZ_BIN_REQ_PDB, RZ_CORE_BIN_ACC_PDB);
 	run_action("size", RZ_BIN_REQ_SIZE, RZ_CORE_BIN_ACC_SIZE);

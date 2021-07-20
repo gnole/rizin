@@ -479,6 +479,15 @@ RZ_API int rz_bin_object_set_items(RzBinFile *bf, RzBinObject *o) {
 			}
 		}
 	}
+        if (bin->filter_rules & RZ_BIN_REQ_BASEFIND) {
+                o->strings = p->strings
+                             ? p->strings(bf)
+                             : rz_bin_file_get_strings(bf, minlen, 0, bf->rawstr);
+                if (bin->debase64) {
+                        rz_bin_object_filter_strings(o);
+                }
+                REBASE_PADDR(o, o->strings, RzBinString);
+        }
 	if (bin->filter_rules & RZ_BIN_REQ_STRINGS) {
 		o->strings = p->strings
 			? p->strings(bf)
